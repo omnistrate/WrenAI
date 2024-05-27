@@ -27,8 +27,6 @@ export interface Project {
   user: string; // User
   // couchbase
   server: string; // Server
-  username: string; // Username
-  password: string; // Password
   // others
   catalog: string; // Catalog name
   schema: string; // Schema name

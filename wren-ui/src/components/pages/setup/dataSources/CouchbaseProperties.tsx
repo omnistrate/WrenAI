@@ -62,7 +62,7 @@ export default function CouchbaseProperties(props: Props) {
       >
         <Input.Password placeholder="input password" />
       </Form.Item>
-      <Form.Item label="Use SSL" name="useSSL" valuePropName="checked">
+      <Form.Item label="Use SSL" name="ssl" valuePropName="checked">
         <Switch />
       </Form.Item>
     </>

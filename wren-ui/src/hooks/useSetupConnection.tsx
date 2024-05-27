@@ -40,6 +40,16 @@ export const transformFormToProperties = (
           : properties?.password,
       ssl: properties?.ssl,
     };
+  } else if (dataSourceType === DataSourceName.COUCHBASE) {
+    return {
+      ...properties,
+      // remove password placeholder if user doesn't change the password
+      password:
+        properties?.password === PASSWORD_PLACEHOLDER
+          ? undefined
+          : properties?.password,
+      ssl: properties?.ssl,
+    };
   }
 
   return properties;
@@ -65,6 +75,12 @@ export const transformPropertiesToForm = (
       extensions: extensions.length ? extensions : [''],
     };
   } else if (dataSourceType === DataSourceName.POSTGRES) {
+    return {
+      ...properties,
+      // provide a password placeholder to UI
+      password: properties?.password || PASSWORD_PLACEHOLDER,
+    };
+  } else if (dataSourceType === DataSourceName.COUCHBASE) {
     return {
       ...properties,
       // provide a password placeholder to UI

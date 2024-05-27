@@ -77,3 +77,6 @@ wren-launcher/main
 
 ## temporary files
 .tmp
+
+# local testing
+start-ui.sh
