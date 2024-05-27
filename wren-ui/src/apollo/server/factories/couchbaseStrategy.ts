@@ -3,7 +3,7 @@ import { Model, ModelColumn, Project } from '../repositories';
 import {
   DataSourceName,
   CouchbaseDataSourceProperties,
-  IContext
+  IContext,
 } from '../types';
 import {
   CouchbaseConnector,
