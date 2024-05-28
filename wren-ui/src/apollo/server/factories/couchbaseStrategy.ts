@@ -32,7 +32,7 @@ export class CouchbaseStrategy implements IDataSourceStrategy {
   public async createDataSource(properties: CouchbaseDataSourceProperties) {
     const { displayName, server, user, password, ssl } = properties;
 
-    await this.testConnection(properties);
+    await this.testConnection();
 
     await this.patchConfigToWrenEngine(properties);
 
@@ -73,7 +73,7 @@ export class CouchbaseStrategy implements IDataSourceStrategy {
       ssl,
     };
 
-    await this.testConnection(newProperties);
+    await this.testConnection();
 
     await this.patchConfigToWrenEngine(newProperties);
 
@@ -188,7 +188,7 @@ export class CouchbaseStrategy implements IDataSourceStrategy {
     return [];
   }
 
-  private async testConnection(properties: any) {
+  private async testConnection() {
     const connector = this.getCouchbaseConnector();
 
     // check DataSource is valid and can connect to it
