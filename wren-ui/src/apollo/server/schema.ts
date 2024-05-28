@@ -7,6 +7,7 @@ export const typeDefs = gql`
     BIG_QUERY
     DUCKDB
     POSTGRES
+    COUCHBASE
   }
 
   enum ExpressionName {

@@ -138,7 +138,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
         return { valid: false, message: JSON.stringify(result) };
       }
     } catch (err: any) {
-      logger.debug(`Got error when validating column: ${err.message}`);
+      logger.error(`Got error when validating column: ${err.message}`);
       return { valid: false, message: err.message };
     }
   }
@@ -159,10 +159,10 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
         `${this.wrenEngineBaseEndpoint}/v1/mdl/deploy`,
         deployPayload,
       );
-      logger.debug(`WrenEngine: Deploy wren engine success, hash: ${hash}`);
+      logger.error(`WrenEngine: Deploy wren engine success, hash: ${hash}`);
       return { status: WrenEngineDeployStatusEnum.SUCCESS };
     } catch (err: any) {
-      logger.debug(`Got error when deploying to wren engine: ${err.message}`);
+      logger.error(`Got error when deploying to wren engine: ${err.message}`);
       return {
         status: WrenEngineDeployStatusEnum.FAILED,
         error: `WrenEngine Error, deployment hash:${hash}: ${err.message}`,
@@ -173,13 +173,13 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
   public async initDatabase(sql) {
     try {
       const url = new URL(this.initSqlUrlPath, this.wrenEngineBaseEndpoint);
-      logger.debug(`Endpoint: ${url.href}`);
+      logger.error(`Endpoint: ${url.href}`);
       const headers = {
         'Content-Type': 'text/plain; charset=utf-8',
       };
       await axios.put(url.href, sql, { headers });
     } catch (err: any) {
-      logger.debug(`Got error when init database: ${err}`);
+      logger.error(`Got error when init database: ${err}`);
       throw Errors.create(Errors.GeneralErrorCodes.INIT_SQL_ERROR, {
         customMessage:
           Errors.errorMessages[Errors.GeneralErrorCodes.INIT_SQL_ERROR],
@@ -199,13 +199,13 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
         this.sessionPropsUrlPath,
         this.wrenEngineBaseEndpoint,
       );
-      logger.debug(`Endpoint: ${url.href}`);
+      logger.error(`Endpoint: ${url.href}`);
       const headers = {
         'Content-Type': 'text/plain; charset=utf-8',
       };
       await axios.put(url.href, setSessionStatements, { headers });
     } catch (err: any) {
-      logger.debug(`Got error when put session props: ${err.message}`);
+      logger.error(`Got error when put session props: ${err.message}`);
       throw Errors.create(Errors.GeneralErrorCodes.SESSION_PROPS_ERROR, {
         customMessage:
           Errors.errorMessages[Errors.GeneralErrorCodes.SESSION_PROPS_ERROR],
@@ -223,7 +223,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       const res = await axios.post(url.href, sql, { headers });
       return res.data as QueryResponse;
     } catch (err: any) {
-      logger.debug(`Got error when querying duckdb: ${err.message}`);
+      logger.error(`Got error when querying duckdb: ${err.message}`);
       throw err;
     }
   }
@@ -240,7 +240,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       const res = await axios.post(url.href, sql, { headers });
       return res.data as QueryResponse;
     } catch (err: any) {
-      logger.debug(`Got error when querying Couchbase: ${err.message}`);
+      logger.error(`Got error when querying Couchbase: ${err.message}`);
       throw err;
     }
   }
@@ -257,7 +257,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       const res = await axios.get(url.href, { headers });
       return res.data as QueryResponse;
     } catch (err: any) {
-      logger.debug(`Got error when querying Couchbase schema: ${err.message}`);
+      logger.error(`Got error when querying Couchbase schema: ${err.message}`);
       throw err;
     }
   }
@@ -276,7 +276,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       };
       await axios.patch(url.href, configPayload, { headers });
     } catch (err: any) {
-      logger.debug(`Got error when patching config: ${err.message}`);
+      logger.error(`Got error when patching config: ${err.message}`);
       throw err;
     }
   }
@@ -305,7 +305,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
 
       return res.data as QueryResponse;
     } catch (err: any) {
-      logger.debug(`Got error when previewing data: ${err.message}`);
+      logger.error(`Got error when previewing data: ${err.message}`);
       throw err;
     }
   }
@@ -318,7 +318,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       const res = await this.previewData(sql, 1);
       return { columns: res.columns };
     } catch (err: any) {
-      logger.debug(`Got error when describing statement: ${err.message}`);
+      logger.error(`Got error when describing statement: ${err.message}`);
       throw err;
     }
   }
@@ -340,7 +340,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
 
       return res.data;
     } catch (err: any) {
-      logger.debug(`Got error when getting native SQL: ${err.message}`);
+      logger.error(`Got error when getting native SQL: ${err.message}`);
       throw err;
     }
   }
@@ -352,7 +352,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       );
       return res.data as WrenEngineDeployStatusResponse;
     } catch (err: any) {
-      logger.debug(
+      logger.error(
         `WrenEngine: Got error when getting deploy status: ${err.message}`,
       );
       throw err;
