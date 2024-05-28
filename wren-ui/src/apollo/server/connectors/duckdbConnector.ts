@@ -45,13 +45,13 @@ export class DuckDBConnector
     await this.wrenEngineAdaptor.putSessionProps(sessionProps);
   }
 
-  public async connect(): Promise<boolean> {
+  public async connect(): Promise<string> {
     const sql = 'SELECT 1;';
     try {
       await this.wrenEngineAdaptor.queryDuckdb(sql);
-      return true;
+      return `'true'`;
     } catch (_err) {
-      return false;
+      return _err.message;
     }
   }
 

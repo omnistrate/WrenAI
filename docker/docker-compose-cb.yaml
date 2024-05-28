@@ -4,9 +4,9 @@ volumes:
   data:
   cbData:
 
-networks:
-  wren:
-    driver: bridge
+# networks:
+#   wren:
+#     driver: bridge
 
 services:
   bootstrap:
@@ -21,18 +21,18 @@ services:
       - data:/app/data
     command: /bin/sh /app/init.sh
 
-  wren-engine:
-    image: wren-engine:0.4.5-SNAPSHOT-arm64
-    restart: always
-    expose:
-      - ${WREN_ENGINE_PORT}
-      - ${WREN_ENGINE_SQL_PORT}
-    volumes:
-      - data:/usr/src/app/etc
-    networks:
-      - wren
-    depends_on:
-      - bootstrap
+  # wren-engine:
+  #   image: wren-engine:0.4.5-SNAPSHOT-arm64
+  #   restart: always
+  #   expose:
+  #     - ${WREN_ENGINE_PORT}
+  #     - ${WREN_ENGINE_SQL_PORT}
+  #   volumes:
+  #     - data:/usr/src/app/etc
+  #   # networks:
+  #   #   - wren
+  #   depends_on:
+  #     - bootstrap
 
   wren-ai-service:
     image: ghcr.io/canner/wren-ai-service:${WREN_AI_SERVICE_VERSION}
@@ -47,14 +47,14 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       OPENAI_GENERATION_MODEL: ${OPENAI_GENERATION_MODEL}
       QDRANT_HOST: qdrant
-      WREN_ENGINE_ENDPOINT: http://wren-engine:${WREN_ENGINE_PORT}
+      WREN_ENGINE_ENDPOINT: http://host.docker.internal:${WREN_ENGINE_PORT}
       # sometimes the console won't show print messages,
       # using PYTHONUNBUFFERED: 1 can fix this
       PYTHONUNBUFFERED: 1
-    networks:
-      - wren
+    # networks:
+    #   - wren
     depends_on:
-      - wren-engine
+      # - wren-engine
       - qdrant
 
   qdrant:
@@ -65,8 +65,8 @@ services:
       - 6334
     volumes:
       - data:/qdrant/storage
-    networks:
-      - wren
+    # networks:
+    #   - wren
 
   wren-ui:
     image: wren-ui:local-arm64
@@ -75,7 +75,7 @@ services:
       DB_TYPE: sqlite
       # /app is the working directory in the container
       SQLITE_FILE: /app/data/db.sqlite3
-      WREN_ENGINE_ENDPOINT: http://wren-engine:${WREN_ENGINE_PORT}
+      WREN_ENGINE_ENDPOINT: http://host.docker.internal:${WREN_ENGINE_PORT}
       WREN_AI_ENDPOINT: http://wren-ai-service:${WREN_AI_SERVICE_PORT}
       OPENAI_GENERATION_MODEL: ${OPENAI_GENERATION_MODEL}
       PG_USERNAME: ${PG_USERNAME}
@@ -100,11 +100,11 @@ services:
       - ${HOST_PORT}:3000
     volumes:
       - data:/app/data
-    networks:
-      - wren
+    # networks:
+    #   - wren
     depends_on:
       - wren-ai-service
-      - wren-engine
+      # - wren-engine
 
   couchserver:
     image: couchbase:enterprise-7.6.1
@@ -130,8 +130,8 @@ services:
       - '18097:18097'
     volumes:
       - cbData:/opt/couchbase/var
-    networks:
-      - wren
+    # networks:
+    #   - wren
 
   postgres:
     image: postgres:14-alpine
@@ -145,5 +145,5 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_DB=test
       - PGDATA=/var/lib/postgresql/data/pgdata
-    networks:
-      - wren
+    # networks:
+    #   - wren

@@ -274,8 +274,8 @@ export class BigQueryStrategy implements IDataSourceStrategy {
 
     // check can connect to bigquery
     const connected = await connector.connect();
-    if (!connected) {
-      throw new Error('Can not connect to data source');
+    if (connected != `'true'`) {
+      throw new Error(`Can not connect to data source ${connected}`);
     }
     // check this credential have permission can list dataset table
     try {

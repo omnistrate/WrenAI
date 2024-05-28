@@ -15,7 +15,7 @@ export interface CompactTable {
 
 export interface IConnector<T, C> {
   prepare(prepareOptions: any): Promise<void>;
-  connect(): Promise<boolean>;
+  connect(): Promise<string>;
   listTables(listTableOptions: any): Promise<CompactTable[] | T[]>;
   listConstraints(listConstraintOptions: any): Promise<[] | C[]>;
 }

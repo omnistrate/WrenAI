@@ -55,15 +55,15 @@ export class PostgresConnector
     return;
   }
 
-  public async connect(): Promise<boolean> {
+  public async connect(): Promise<string> {
     try {
       await this.prepareClient();
       // query to check if connection is successful
       await this.client.query('SELECT 1;');
-      return true;
-    } catch (err) {
-      logger.error(`Error connecting to Postgres: ${err}`);
-      return false;
+      return `'true'`;
+    } catch (_err) {
+      logger.error(`Error connecting to Postgres: ${_err}`);
+      return _err.message;
     }
   }
 

@@ -60,9 +60,9 @@ export class BQConnector
   public async connect() {
     try {
       await this.bq.query('SELECT 1;');
-      return true;
+      return `'true'`;
     } catch (_err) {
-      return false;
+      return `'false'`;
     }
   }
 
