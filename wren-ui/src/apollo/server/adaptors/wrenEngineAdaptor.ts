@@ -240,6 +240,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       const res = await axios.post(url.href, sql, { headers });
       return res.data as QueryResponse;
     } catch (err: any) {
+      console.error(err);
       logger.error(`Got error when querying Couchbase: ${err.message}`);
       throw err;
     }
@@ -257,6 +258,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
       const res = await axios.get(url.href, { headers });
       return res.data as QueryResponse;
     } catch (err: any) {
+      console.error(err);
       logger.error(`Got error when querying Couchbase schema: ${err.message}`);
       throw err;
     }
