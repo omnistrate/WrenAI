@@ -49,6 +49,9 @@ exports.up = function (knex) {
     // sample datset
     table.string('sample_dataset').nullable().comment('sample dataset name');
 
+    // server
+    table.string('server').nullable().comment('server name');
+
     table.timestamps(true, true);
   });
 };
