@@ -60,7 +60,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Couchbase IQ</title>
+        <title>Couchbase iQ</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <ApolloProvider client={apolloClient}>
