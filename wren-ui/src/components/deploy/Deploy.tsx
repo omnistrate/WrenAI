@@ -29,7 +29,7 @@ const getDeployStatus = (deploying: boolean, status: SyncStatus) => {
       [SyncStatus.UNSYNCRONIZED]: (
         <Space size={[4, 0]}>
           <WarningOutlined className="mr-1 gold-6" />
-          <Text className="gray-1">Undeployed changes</Text>
+          <Text className="black">Undeployed changes</Text>
         </Space>
       ),
     }[syncStatus] || ''
