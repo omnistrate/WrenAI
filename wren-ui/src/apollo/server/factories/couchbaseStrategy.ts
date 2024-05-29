@@ -34,8 +34,6 @@ export class CouchbaseStrategy implements IDataSourceStrategy {
 
     await this.testConnection();
 
-    await this.patchConfigToWrenEngine(properties);
-
     // save DataSource to database
     const credentials = { password } as any;
     const encryptor = new Encryptor(this.ctx.config);
@@ -74,8 +72,6 @@ export class CouchbaseStrategy implements IDataSourceStrategy {
     };
 
     await this.testConnection();
-
-    await this.patchConfigToWrenEngine(newProperties);
 
     const credentials = { password } as any;
     const encryptedCredentials = encryptor.encrypt(credentials);
@@ -204,19 +200,19 @@ export class CouchbaseStrategy implements IDataSourceStrategy {
     }
   }
 
-  private async patchConfigToWrenEngine(properties: any) {
-    const { server, user, password } = properties;
-    // update wren-engine config
-    const jdbcUrl = `jdbc:couchbase://User='${user}';Password='${password}';Server='${server}'`;
-    const config = {
-      'wren.datasource.type': 'couchbase',
-      'couchbase.jdbc.url': jdbcUrl,
-      'couchbase.server': server,
-      'couchbase.user': user,
-      'couchbase.password': password,
-    };
-    await this.ctx.wrenEngineAdaptor.patchConfig(config);
-  }
+  // private async patchConfigToWrenEngine(properties: any) {
+  //   const { server, user, password } = properties;
+  //   // update wren-engine config
+  //   const jdbcUrl = `jdbc:couchbase://User='${user}';Password='${password}';Server='${server}'`;
+  //   const config = {
+  //     'wren.datasource.type': 'couchbase',
+  //     'couchbase.jdbc.url': jdbcUrl,
+  //     'couchbase.server': server,
+  //     'couchbase.user': user,
+  //     'couchbase.password': password,
+  //   };
+  //   await this.ctx.wrenEngineAdaptor.patchConfig(config);
+  // }
 
   private getCouchbaseConnector() {
     // // get credentials decrypted
