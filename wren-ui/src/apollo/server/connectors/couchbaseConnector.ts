@@ -1,6 +1,4 @@
-import {
-  IWrenEngineAdaptor,
-} from '../adaptors/wrenEngineAdaptor';
+import { IWrenEngineAdaptor } from '../adaptors/wrenEngineAdaptor';
 import { CompactTable } from './connector';
 import { IConnector } from './connector';
 import { getLogger } from '@server/utils';
