@@ -288,7 +288,7 @@ export class AskingService implements IAskingService {
    * Asking task.
    */
   public async createAskingTask(input: AskingTaskInput): Promise<Task> {
-    const deployId = await this.getDeployId();
+    const deployId = 'deployId';
 
     // if it's a follow-up question, then the input will have a threadId
     // then use the threadId to get the sql, summary and get the steps of last thread response
