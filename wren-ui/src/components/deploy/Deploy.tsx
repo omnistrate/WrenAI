@@ -6,6 +6,31 @@ import WarningOutlined from '@ant-design/icons/WarningOutlined';
 import { SyncStatus } from '@/apollo/client/graphql/__types__';
 import { useDeployMutation } from '@/apollo/client/graphql/deploy.generated';
 import { useDeployStatusContext } from '@/components/deploy/Context';
+import styled from 'styled-components';
+
+const StyledButton = styled(Button)<{ $isDisabled: boolean }>`
+  background: ${(props) => (props.$isDisabled ? '#4c4c4c' : '#4c4c4c')};
+  font-weight: 500;
+  border: none;
+  color: #e5e5e5;
+  cursor: ${(props) => (props.$isDisabled ? 'not-allowed' : 'pointer')};
+  opacity: ${(props) => (props.$isDisabled ? 0.6 : 1)};
+  letter-spacing: 0.5px;
+
+  &:hover,
+  &:focus {
+    background: ${(props) =>
+      props.$isDisabled ? '#979797' : '#4c4c4c'} !important;
+    color: ${(props) => (props.$isDisabled ? '#fff' : '#ffffff')} !important;
+  }
+
+  &:disabled {
+    background: #4c4c4c;
+    color: #e5e5e5;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+`;
 
 const { Text } = Typography;
 
@@ -15,19 +40,19 @@ const getDeployStatus = (deploying: boolean, status: SyncStatus) => {
   return (
     {
       [SyncStatus.IN_PROGRESS]: (
-        <Space size={[4, 0]}>
+        <Space size={[4, 0]} className="p-3">
           <LoadingOutlined className="mr-1 gray-1" />
           <Text className="gray-1">Deploying...</Text>
         </Space>
       ),
       [SyncStatus.SYNCRONIZED]: (
-        <Space size={[4, 0]}>
-          <CheckCircleOutlined className="mr-1 green-7" />
-          <Text className="black">Synced</Text>
+        <Space size={[4, 0]} className="p-3">
+          <CheckCircleOutlined className="mr-1 gray-1" />
+          <Text className="gray-1">Synced</Text>
         </Space>
       ),
       [SyncStatus.UNSYNCRONIZED]: (
-        <Space size={[4, 0]}>
+        <Space size={[4, 0]} className="p-3">
           <WarningOutlined className="mr-1 gold-6" />
           <Text className="black">Undeployed changes</Text>
         </Space>
@@ -81,14 +106,14 @@ export default function Deploy() {
   return (
     <Space size={[8, 0]}>
       {getDeployStatus(deploying, syncStatus)}
-      <Button
-        className={`adm-modeling-header-btn ${disabled ? '' : 'gray-10'}`}
+      <StyledButton
+        $isDisabled={disabled}
         disabled={disabled}
         onClick={() => onDeploy()}
-        size="small"
+        size="large"
       >
         Deploy
-      </Button>
+      </StyledButton>
     </Space>
   );
 }
