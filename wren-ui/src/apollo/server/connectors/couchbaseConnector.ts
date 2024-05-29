@@ -5,6 +5,7 @@ import {
 import { CompactTable } from './connector';
 import { IConnector } from './connector';
 import { getLogger } from '@server/utils';
+import { PostgresColumnResponse } from '@server/connectors/postgresConnector';
 
 const logger = getLogger('CouchbaseConnector');
 logger.level = 'debug';
@@ -22,8 +23,8 @@ export interface CouchbaseColumnResponse {
   table_schema: string;
   table_name: string;
   column_name: string;
-  ordinal_position: string;
-  is_nullable: string;
+  ordinal_position: number;
+  is_nullable: boolean;
   data_type: string;
 }
 
@@ -64,40 +65,47 @@ export class CouchbaseConnector
     return [];
   }
 
-  private formatToCompactTable(columns: QueryResponse): CompactTable[] {
-    return columns.data.reduce((acc: CompactTable[], row: any) => {
-      const [
-        table_catalog,
-        table_schema,
-        table_name,
-        column_name,
-        _ordinal_position,
-        is_nullable,
-        data_type,
-      ] = row;
-      let table = acc.find(
-        (t) => t.name === table_name && t.properties.schema === table_schema,
-      );
-      if (!table) {
-        table = {
-          name: table_name,
+  private formatToCompactTable(
+    columns: CouchbaseColumnResponse[],
+  ): CompactTable[] {
+    return columns.reduce(
+      (acc: CompactTable[], row: CouchbaseColumnResponse) => {
+        const {
+          table_catalog,
+          table_schema,
+          table_name,
+          column_name,
+          is_nullable,
+          data_type,
+        } = row;
+        const tableName = this.formatCompactTableName(table_name, table_schema);
+        let table = acc.find((t) => t.name === tableName);
+        if (!table) {
+          table = {
+            name: tableName,
+            description: '',
+            columns: [],
+            properties: {
+              schema: table_schema,
+              catalog: table_catalog,
+            },
+          };
+          acc.push(table);
+        }
+        table.columns.push({
+          name: column_name,
+          type: data_type,
+          notNull: is_nullable,
           description: '',
-          columns: [],
-          properties: {
-            schema: table_schema,
-            catalog: table_catalog,
-          },
-        };
-        acc.push(table);
-      }
-      table.columns.push({
-        name: column_name,
-        type: data_type,
-        notNull: is_nullable.toLocaleLowerCase() !== 'yes',
-        description: '',
-        properties: {},
-      });
-      return acc;
-    }, []);
+          properties: {},
+        });
+        return acc;
+      },
+      [],
+    );
+  }
+
+  public formatCompactTableName(tableName: string, schema: string) {
+    return `${schema}.${tableName}`;
   }
 }

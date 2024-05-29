@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Manifest } from '../mdl/type';
 import { getLogger } from '@server/utils';
 import * as Errors from '@server/utils/error';
+import { CouchbaseColumnResponse } from '@server/connectors/couchbaseConnector';
 
 const logger = getLogger('WrenEngineAdaptor');
 logger.level = 'debug';
@@ -72,7 +73,7 @@ export interface IWrenEngineAdaptor {
   putSessionProps(props: Record<string, any>): Promise<void>;
   queryDuckdb(sql: string): Promise<QueryResponse>;
   queryCouchbase(sql: string): Promise<QueryResponse>;
-  queryCouchbaseSchema(): Promise<QueryResponse>;
+  queryCouchbaseSchema(): Promise<CouchbaseColumnResponse[]>;
   patchConfig(config: Record<string, any>): Promise<void>;
   previewData(
     sql: string,
