@@ -1,11 +1,9 @@
 import {
   IWrenEngineAdaptor,
-  QueryResponse,
 } from '../adaptors/wrenEngineAdaptor';
 import { CompactTable } from './connector';
 import { IConnector } from './connector';
 import { getLogger } from '@server/utils';
-import { PostgresColumnResponse } from '@server/connectors/postgresConnector';
 
 const logger = getLogger('CouchbaseConnector');
 logger.level = 'debug';
