@@ -29,7 +29,7 @@ export interface CouchbaseColumnResponse {
 export class CouchbaseConnector
   implements IConnector<CouchbaseColumnResponse[], any[]>
 {
-  private wrenEngineAdaptor: IWrenEngineAdaptor;
+  private wrenEngineAdaptor:IWrenEngineAdaptor;
   constructor({
     wrenEngineAdaptor,
   }: {
