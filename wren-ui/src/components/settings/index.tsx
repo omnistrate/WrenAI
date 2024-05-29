@@ -136,12 +136,6 @@ export default function Settings(props: Props) {
               onClick={onMenuClick}
             />
           </div>
-          {!!productVersion && (
-            <div className="gray-7 d-flex align-center p-3 px-5">
-              <InfoCircleOutlined className="mr-2 text-sm" />
-              WrenAI version: {productVersion}
-            </div>
-          )}
         </StyledSider>
         <Content className="d-flex flex-column">
           <div className="d-flex align-center gray-9 border-b border-gray-4 text-bold py-3 px-4">
