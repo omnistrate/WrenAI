@@ -9,25 +9,23 @@ const { Header } = Layout;
 
 const StyledButton = styled(Button)<{ $isHighlight: boolean }>`
   background: ${(props) =>
-    props.$isHighlight ? 'rgba(255, 255, 255, 0.20)' : 'transparent'};
+    props.$isHighlight ? 'rgba(255, 0, 0, 0.20)' : 'transparent'};
   font-weight: ${(props) => (props.$isHighlight ? '700' : 'normal')};
   border: none;
-  color: var(--gray-1);
+  color: var(#000);
 
   &:hover,
   &:focus {
     background: ${(props) =>
-      props.$isHighlight
-        ? 'rgba(255, 255, 255, 0.20)'
-        : 'rgba(255, 255, 255, 0.05)'};
-    color: var(--gray-1);
+      props.$isHighlight ? 'rgba(255, 0, 0, 0.20)' : 'rgba(255, 0, 0, 0.05)'};
+    color: var(#fff);
   }
 `;
 
 const StyledHeader = styled(Header)`
   height: 48px;
   border-bottom: 1px solid var(--gray-5);
-  background: var(--gray-10);
+  background: var(#fff);
   padding: 10px 16px;
 `;
 

@@ -23,7 +23,7 @@ const getDeployStatus = (deploying: boolean, status: SyncStatus) => {
       [SyncStatus.SYNCRONIZED]: (
         <Space size={[4, 0]}>
           <CheckCircleOutlined className="mr-1 green-7" />
-          <Text className="gray-1">Synced</Text>
+          <Text className="black">Synced</Text>
         </Space>
       ),
       [SyncStatus.UNSYNCRONIZED]: (
