@@ -8,25 +8,24 @@ import Deploy from '@/components/deploy/Deploy';
 const { Header } = Layout;
 
 const StyledButton = styled(Button)<{ $isHighlight: boolean }>`
-  background: ${(props) =>
-    props.$isHighlight ? 'rgba(255, 0, 0, 0.20)' : 'transparent'};
-  font-weight: ${(props) => (props.$isHighlight ? '700' : 'normal')};
+  background: ${(props) => (props.$isHighlight ? '#4c4c4c' : 'transparent')};
+  letter-spacing: 0.5px;
+  font-weight: 500;
   border: none;
-  color: var(#000);
-
+  color: #e5e5e5;
+  cursor: pointer;
   &:hover,
   &:focus {
-    background: ${(props) =>
-      props.$isHighlight ? 'rgba(255, 0, 0, 0.20)' : 'rgba(255, 0, 0, 0.05)'};
-    color: var(#fff);
+    background: #4c4c4c;
+    color: #e5e5e5;
   }
 `;
 
 const StyledHeader = styled(Header)`
-  height: 48px;
+  height: 84px;
   border-bottom: 1px solid var(--gray-5);
-  background: var(#fff);
-  padding: 10px 16px;
+  background: #000;
+  padding: 20px;
 `;
 
 export default function HeaderBar() {
@@ -46,16 +45,14 @@ export default function HeaderBar() {
           {showNav && (
             <Space size={[16, 0]}>
               <StyledButton
-                shape="round"
-                size="small"
+                size="large"
                 $isHighlight={pathname.startsWith(Path.Home)}
                 onClick={() => router.push(Path.Home)}
               >
                 Home
               </StyledButton>
               <StyledButton
-                shape="round"
-                size="small"
+                size="large"
                 $isHighlight={pathname.startsWith(Path.Modeling)}
                 onClick={() => router.push(Path.Modeling)}
               >

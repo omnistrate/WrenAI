@@ -5,8 +5,8 @@ export default function LogoBar() {
     <Image
       src="/images/logo-white-with-text.svg"
       alt="Couchbase IQ"
-      width={125}
-      height={30}
+      width={198}
+      height={45}
     />
   );
 }
