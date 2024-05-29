@@ -61,7 +61,7 @@ function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Couchbase IQ</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
       <ApolloProvider client={apolloClient}>
         <PostHogProvider client={posthog}>
