@@ -247,7 +247,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
     }
   }
 
-  public async queryCouchbaseSchema(): Promise<QueryResponse> {
+  public async queryCouchbaseSchema(): Promise<CouchbaseColumnResponse[]> {
     try {
       const url = new URL(
         this.queryCouchbaseSchemaUrlPath,
@@ -257,7 +257,7 @@ export class WrenEngineAdaptor implements IWrenEngineAdaptor {
         'Content-Type': 'text/plain; charset=utf-8',
       };
       const res = await axios.get(url.href, { headers });
-      return res.data as QueryResponse;
+      return res.data as CouchbaseColumnResponse[];
     } catch (err: any) {
       console.error(err);
       logger.error(`Got error when querying Couchbase schema: ${err.message}`);
