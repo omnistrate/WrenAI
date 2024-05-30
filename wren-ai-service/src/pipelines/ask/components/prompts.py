@@ -6,7 +6,7 @@ TEXT_TO_SQL_RULES = """
 - ONLY USE the tables and columns mentioned in the database schema.
 - ONLY CHOOSE columns belong to the tables mentioned in the database schema.
 - YOU MUST USE "JOIN" if you choose columns from multiple tables!
-- YOU MUST USE "lower(<column_name>) = lower(<value>)" function for case-insensitive comparison!
+- BE case-sensitive when comparing strings in SQL queries.
 - DON'T USE "DATE_ADD" or "DATE_SUB" functions for date operations, instead use syntax like this "current_date - INTERVAL '7' DAY"!
 - USE THE VIEW TO SIMPLIFY THE QUERY.
 - DON'T MISUSE THE VIEW NAME. THE ACTUAL NAME IS FOLLOWING THE CREATE VIEW STATEMENT.
