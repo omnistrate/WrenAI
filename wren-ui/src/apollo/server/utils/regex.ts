@@ -28,6 +28,6 @@ export function validateDisplayName(displayName: string): ValidationResult {
 }
 
 export function replaceAllowableSyntax(str: string) {
-  const replacedStr = str.replace(/[!@#$%^&*()+{}[\]'",. -]/g, '_');
+  const replacedStr = str.replace(/[!@#$%^&*()+{}[\]'", -]/g, '_');
   return replacedStr;
 }
