@@ -4,8 +4,8 @@ export default function LogoBar() {
   return (
     <Image
       src="/images/logo-white-with-text.svg"
-      alt="Couchbase iQ"
-      width={231}
+      alt="Omnistrate AI Platform"
+      width={357}
       height={45}
     />
   );

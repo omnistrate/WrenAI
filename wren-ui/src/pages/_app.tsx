@@ -60,8 +60,8 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Couchbase iQ</title>
-        <link rel="icon" href="/favicon.svg" />
+        <title>Omnistrate AI Platform</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <ApolloProvider client={apolloClient}>
         <PostHogProvider client={posthog}>

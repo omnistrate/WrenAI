@@ -54,13 +54,7 @@ export default function Home() {
         className="d-flex align-center justify-center flex-column"
         style={{ height: '100%' }}
       >
-        <Image
-          src="/images/logo.svg"
-          width="41"
-          height="48"
-          alt="logo"
-          style={{ opacity: 0.6 }}
-        />
+        <Image src="/images/logo.svg" width="41" height="48" alt="logo" />
         <div className="text-md text-medium gray-8 mt-3">
           Know more about your data
         </div>
